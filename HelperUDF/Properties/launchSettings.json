@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "Excel": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Program Files (x86)\\Microsoft Office\\Office16\\EXCEL.EXE",
+      "commandLineArgs": "/x \"HelperUDF-AddIn.xll\""
+    }
+  }
+}
