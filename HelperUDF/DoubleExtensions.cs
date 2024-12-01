@@ -8,18 +8,16 @@
             {
                 return Math.Round(@double, digits).ToString("f" + digits);
             }
-            else
-            {
-                var safetyDigits = Math.Abs(digits);
 
-                var temp = @double / Math.Pow(10, safetyDigits);
-                var rounded = Math.Round(temp, 1);
+            var safetyDigits = Math.Abs(digits);
 
-                var result = rounded * Math.Pow(10, safetyDigits);
+            var temp = @double / Math.Pow(10, safetyDigits);
+            var rounded = Math.Round(temp, 1);
 
-                // Отбросить возможную дробную часть .000000000Х
-                return Math.Truncate(result).ToString();
-            }
+            var result = rounded * Math.Pow(10, safetyDigits);
+
+            // Отбросить возможную дробную часть .000000000Х
+            return Math.Truncate(result).ToString();
         }
     }
 }
