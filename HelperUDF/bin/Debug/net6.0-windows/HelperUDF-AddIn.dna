@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DnaLibrary RollForward="LatestMinor" Name="HelperUDF Add-In" RuntimeVersion="v6.0" xmlns="http://schemas.excel-dna.net/addin/2020/07/dnalibrary">
+  <ExternalLibrary Path="HelperUDF.dll" ExplicitExports="false" LoadFromBytes="true" Pack="true" IncludePdb="false" />
+
+	<CustomUI>
+		<customUI xmlns='http://schemas.microsoft.com/office/2009/07/customui'
+				  xmlns:kolodka='kolodka'>
+			
+			<ribbon>
+				<tabs>
+					<tab idMso='TabHome'>
+						
+						<group idQ='kolodka:helperUDF' 
+							   label='helper UDF'>
+							
+							<button id='HelpButton' 
+									label='Справка по UDF' 
+									size='large' 
+									imageMso='Help' 
+									onAction='ShowHelp'/>
+						</group >
+						
+					</tab>
+				</tabs>
+			</ribbon>
+		</customUI>
+	</CustomUI>
+  
+</DnaLibrary>
