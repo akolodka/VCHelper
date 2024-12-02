@@ -1,6 +1,6 @@
 ﻿namespace HelperUDF
 {
-    internal static class Core
+    internal static class Core 
     {
         internal static int GetRoundDigits(double absoluteUncertainty)
         {

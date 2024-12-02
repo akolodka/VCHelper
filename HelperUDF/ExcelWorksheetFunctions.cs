@@ -27,11 +27,11 @@ namespace HelperUDF
             var digits = Core.GetRoundDigits(absoluteUncertainty);
 
             var result = (
-                value: value.ToStringSafetyRounded(digits), 
-                uncertainty: absoluteUncertainty.ToStringSafetyRounded(digits)
+                value: value.ToStringRoundedSafety(digits), 
+                uncertainty: absoluteUncertainty.ToStringRoundedSafety(digits)
                 );
 
-            if(isShowWithUncertainty == true)
+            if (isShowWithUncertainty == true)
             {
                 return $"{result.value} ± {result.uncertainty}";
             }
@@ -39,32 +39,32 @@ namespace HelperUDF
             return result.value;
         }
 
-        [ExcelFunction(Description = "Рассчитать относительное среднее квадратическое отклонение среднего арифметического генеральной совокупности, %")]
+        [ExcelFunction(Description = "Рассчитать относительное среднее квадратическое отклонение среднего арифметического оценки измеряемой величины согласно ГОСТ Р 8.736–2011, %")]
         public static object MeanSquareAverage(
 
             [ExcelArgument(Description = "Совокупность значений диапазона ячеек. Учитываются только численные значения, которых должно быть более одного")]
-            object[,] data)
+            object[,] values)
         {
-            var values = new List<double>();
+            var numValues = new List<double>();
 
-            foreach (var d in data)
+            foreach (var d in values)
             {
                 if (double.TryParse(d.ToString(), out var parsed) == true) 
                 {
-                    values.Add(parsed);
+                    numValues.Add(parsed);
                 }
             }
 
-            if (values.Count < 2)
+            if (numValues.Count < 2)
             {
                 return ExcelError.ExcelErrorNA;
             }
 
-            var average = values.Average();
+            var average = numValues.Average();
 
-            var squareValuesSum = values.Select(v => (v - average) * (v - average)).Sum();
+            var squareValuesSum = numValues.Select(v => (v - average) * (v - average)).Sum();
 
-            var result = 100 / average * Math.Sqrt(squareValuesSum / values.Count / (values.Count - 1));
+            var result = 100 / average * Math.Sqrt(squareValuesSum / numValues.Count / (numValues.Count - 1));
 
             return result;
         }

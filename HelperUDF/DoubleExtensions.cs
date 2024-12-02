@@ -2,7 +2,7 @@
 {
     internal static class DoubleExtensions
     {
-        public static string ToStringSafetyRounded(this double @double, int digits)
+        public static string ToStringRoundedSafety(this double @double, int digits)
         {
             if (digits >= 0)
             {

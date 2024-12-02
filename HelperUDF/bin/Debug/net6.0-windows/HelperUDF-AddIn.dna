@@ -4,7 +4,8 @@
 
 	<CustomUI>
 		<customUI xmlns='http://schemas.microsoft.com/office/2009/07/customui'
-				  xmlns:kolodka='kolodka'>
+				  xmlns:kolodka='kolodka'
+				  onLoad ='OnRibbonLoad'>
 			
 			<ribbon>
 				<tabs>
