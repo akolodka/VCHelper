@@ -12,7 +12,7 @@
 
 Содержимое справки:
 
-![Title](https://github.com/akolodka/helperUDF/blob/master/resources/helperUDF%20--%20message.png)
+![Title](https://github.com/akolodka/helperUDF/blob/master/resources/helperUDF%20--%20messagebox.png)
 
 ## Применение
 
