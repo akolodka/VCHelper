@@ -1,10 +1,20 @@
 ﻿using ExcelDna.Integration;
+using HelperUDF.Extensions;
+using HelperUDF.Core;
 
-namespace HelperUDF
+namespace HelperUDF.ExcelApi
 {
     public static class ExcelWorksheetFunctions
     {
-        [ExcelFunction(Description = "Округлить численное значение согласно правилу, изложенному в приложении Е ГОСТ Р 8736–2011")]
+        private static ICalculateService Calc;
+        internal static void Initialize (ICalculateService service)
+        {
+            Calc = service;
+        }
+
+        [ExcelFunction(
+            Name = "ОКРУГЛГОСТ", 
+            Description = "Округлить число согласно правилу, изложенному в приложении Е ГОСТ Р 8736–2011")]
         public static object RoundGOST(
 
             [ExcelArgument(Description = "Численное значение")]
@@ -13,7 +23,7 @@ namespace HelperUDF
             [ExcelArgument(Description = "Относительная неопределённость, %")]
             double uncertainty,
 
-            [ExcelArgument(Description = "Отобразить результат как значение ± абсолютная неопределённость")]
+            [ExcelArgument(Description = "Отобразить значение ± абсолютная неопределённость")]
             bool isShowWithUncertainty = false)
         {
 
@@ -24,12 +34,11 @@ namespace HelperUDF
 
             var absoluteUncertainty = value * uncertainty / 100;
 
-            var digits = Core.GetRoundDigits(absoluteUncertainty);
+            var digits = Calc.GetRoundDigits(absoluteUncertainty);
 
             var result = (
                 value: value.ToStringRoundedSafety(digits), 
-                uncertainty: absoluteUncertainty.ToStringRoundedSafety(digits)
-                );
+                uncertainty: absoluteUncertainty.ToStringRoundedSafety(digits));
 
             if (isShowWithUncertainty == true)
             {
@@ -39,7 +48,9 @@ namespace HelperUDF
             return result.value;
         }
 
-        [ExcelFunction(Description = "Рассчитать относительное среднее квадратическое отклонение среднего арифметического оценки измеряемой величины согласно ГОСТ Р 8.736–2011, %")]
+        [ExcelFunction(
+            Name = "ОСКОСА",
+            Description = "Рассчитать относительное среднее квадратическое отклонение среднего арифметического оценки измеряемой величины согласно ГОСТ Р 8.736–2011, %")]
         public static object MeanSquareAverage(
 
             [ExcelArgument(Description = "Совокупность значений диапазона ячеек. Учитываются только численные значения, которых должно быть более одного")]

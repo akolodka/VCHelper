@@ -1,4 +1,4 @@
-﻿namespace HelperUDF
+﻿namespace HelperUDF.Extensions
 {
     internal static class DoubleExtensions
     {
@@ -12,6 +12,7 @@
             var safetyDigits = Math.Abs(digits);
 
             var temp = @double / Math.Pow(10, safetyDigits);
+
             var rounded = Math.Round(temp, 1);
 
             var result = rounded * Math.Pow(10, safetyDigits);
