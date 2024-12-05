@@ -9,13 +9,13 @@
                 return Math.Round(@double, digits).ToString("f" + digits);
             }
 
-            var safetyDigits = Math.Abs(digits);
+            var safeDigits = Math.Abs(digits);
 
-            var temp = @double / Math.Pow(10, safetyDigits);
+            var temp = @double / Math.Pow(10, safeDigits);
 
             var rounded = Math.Round(temp, 1);
 
-            var result = rounded * Math.Pow(10, safetyDigits);
+            var result = rounded * Math.Pow(10, safeDigits);
 
             // Отбросить возможную дробную часть .000000000Х
             return Math.Truncate(result).ToString();
