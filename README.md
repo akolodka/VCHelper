@@ -1,12 +1,14 @@
 # helperUDF 
-Пример размещения пользовательских функции Excel в надстроке .xll.
+Пример реализации возможностей платформы .NET при создании пользовательских функций Excel.
+
+Для работы надстройки требуется .NET 6 runtime.
 
 ## Начало работы
-Для работы надстройки требуется .NET 6 runtime.
+
 
 Запустить HelperUDF-AddIn.xll.
 
-На вкладке «Главная» появится дополнительная кнопка со справкой по доступным пользовательским функциям:
+На вкладке «Главная» появится дополнительная кнопка со справкой по доступным UDF:
 
 ![Title](https://github.com/akolodka/helperUDF/blob/master/resources/helperUDF_ribbonButton.png)
 
@@ -14,29 +16,25 @@
 
 ![Title](https://github.com/akolodka/helperUDF/blob/master/resources/helperUDF%20--%20messagebox.png)
 
-## Пример округления
+## Пример округления значений
 
-В любой ячейке листа ввести наименование функции и передать параметры:
+В ячейке листа ввести наименование функции и передать параметры:
 
-![Title](https://github.com/akolodka/helperUDF/blob/master/resources/helperUDF%20--%20cell_function.png)
-
-Результат выполнения будет помещен в ячейку, из которой вызвана функция:
-![Title](https://github.com/akolodka/helperUDF/blob/master/resources/heplerUDF%20--%20result.png)
+![Title](https://github.com/akolodka/helperUDF/blob/master/resources/RoundExample.png)
+![Title](https://github.com/akolodka/helperUDF/blob/master/resources/RoundExample%20-2.png)
 
 ## Пример вычисления относительного среднего квадратического отклонения среднего арифметического оценки измеряемой величины
 
-Ввод функции в ячейке листа. Нечисловые значения игнорируются:
+В ячейке листа ввести наименование функции и передать параметры. Нечисловые значения игнорируются:
 
-![Title](https://github.com/akolodka/helperUDF/blob/master/resources/helperUDF%20--%20MeanSquareAverage.png)
+![Title](https://github.com/akolodka/helperUDF/blob/master/resources/MeanSquareExample.png)
+![Title](https://github.com/akolodka/helperUDF/blob/master/resources/MeanSquareExample%20-2.png)
 
-Результат вычислений:
+Аналогичное вычисление с применением стандартных функций Excel:
 
-![Title](https://github.com/akolodka/helperUDF/blob/master/resources/helperUDF%20--%20MeanSquareAverage_result.png)
+![Title](https://github.com/akolodka/helperUDF/blob/master/resources/MeanSquareExample%20-3.png)
 
-Вычисление с помощью встроенных функций Excel:
+Сопоставление результатов вычислений:
 
-![Title](https://github.com/akolodka/helperUDF/blob/master/resources/helperUDF%20--%20MeanSquareAverage_checking.png)
-
-Сопоставление результатов:
-
-![Title](https://github.com/akolodka/helperUDF/blob/master/resources/helperUDF%20--%20MeanSquareAverage_check%20result.png)
+![Title](https://github.com/akolodka/helperUDF/blob/master/resources/MeanSquareExample%20-4.png)
+![Title](https://github.com/akolodka/helperUDF/blob/master/resources/MeanSquareExample%20-5.png)
