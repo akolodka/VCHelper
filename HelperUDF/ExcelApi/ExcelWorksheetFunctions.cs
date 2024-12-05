@@ -7,6 +7,7 @@ namespace HelperUDF.ExcelApi
     public static class ExcelWorksheetFunctions
     {
         private static ICalculateService Calc;
+
         internal static void Initialize (ICalculateService service)
         {
             Calc = service;
