@@ -12,10 +12,6 @@
 
 ![Title](https://github.com/akolodka/helperUDF/blob/master/resources/helperUDF_ribbonButton.png)
 
-Содержимое справки:
-
-![Title](https://github.com/akolodka/helperUDF/blob/master/resources/helperUDF%20--%20messagebox.png)
-
 ## Функция ОКРУГЛГОСТ. Округление согласно ГОСТ Р 8.736–2011
 
 В ячейке листа ввести наименование функции и передать параметры:
@@ -23,14 +19,14 @@
 ![Title](https://github.com/akolodka/helperUDF/blob/master/resources/RoundExample1.png)
 ![Title](https://github.com/akolodka/helperUDF/blob/master/resources/RoundExample%20-2.png)
 
-## Функция ОСКОСА. Вычисление относительного среднего квадратического отклонения среднего арифметического оценки измеряемой величины.
+## Функция ОСКОСА. Вычисление относительного среднего квадратического отклонения среднего арифметического оценки измеряемой величины согласно ГОСТ Р 8.736–2011
 
 В ячейке листа ввести наименование функции и передать параметры. Нечисловые значения игнорируются:
 
 ![Title](https://github.com/akolodka/helperUDF/blob/master/resources/MeanSquareExample.png)
 ![Title](https://github.com/akolodka/helperUDF/blob/master/resources/MeanSquareExample%20-2.png)
 
-Аналогичное вычисление с применением стандартных функций Excel:
+Аналогичное вычисление с применением встроенных функций Excel:
 
 ![Title](https://github.com/akolodka/helperUDF/blob/master/resources/MeanSquareExample%20-3.png)
 
