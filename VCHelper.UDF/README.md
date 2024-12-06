@@ -20,7 +20,7 @@
 
 В ячейке листа ввести наименование функции и передать параметры:
 
-![Title](https://github.com/akolodka/helperUDF/blob/master/resources/RoundExample.png)
+![Title](https://github.com/akolodka/helperUDF/blob/master/resources/RoundExample1.png)
 ![Title](https://github.com/akolodka/helperUDF/blob/master/resources/RoundExample%20-2.png)
 
 ## Пример вычисления относительного среднего квадратического отклонения среднего арифметического оценки измеряемой величины
