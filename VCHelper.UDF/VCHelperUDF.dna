@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <DnaLibrary RollForward="LatestMinor" 
-			Name="VCHelperUDF" 
+			Name="VCHelper.UDF" 
 			RuntimeVersion="v6.0" 
 			xmlns="http://schemas.excel-dna.net/addin/2020/07/dnalibrary">
 			
-  <ExternalLibrary Path="VCHelperUDF.dll" 
+  <ExternalLibrary Path="VCHelper.UDF.dll" 
 				   ExplicitExports="false" 
 				   LoadFromBytes="true" 
 				   Pack="true" 
@@ -12,15 +13,15 @@
 
 	<CustomUI>
 		<customUI xmlns='http://schemas.microsoft.com/office/2009/07/customui'
-				  xmlns:helper='helper'
+				  xmlns:VCHelper='https://github.com/akolodka/VCHelper'
 				  onLoad ='OnRibbonLoad'>
 			
 			<ribbon>
 				<tabs>
 					<tab idMso='TabHome'>
 						
-						<group idQ='helper:UDF' 
-							   label='UDF'>
+						<group idQ='VCHelper:UDF' 
+							   label='Помощник ПКР'>
 							
 							<button id='HelpButton' 
 									label='Справка по UDF' 

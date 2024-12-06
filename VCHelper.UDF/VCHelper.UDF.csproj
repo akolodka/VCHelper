@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="HelperUDF-AddIn.dna">
+    <None Update="VCHelperUDF.dna">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
