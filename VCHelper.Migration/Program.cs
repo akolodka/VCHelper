@@ -1,58 +1,35 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace VCHelper.Migration
 {
     internal class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
+            IHost host = CreateHost();
 
-            var config = new Configuration()
-            {
-                ConnectionString = "Host=localhost;Port=5432;Database=nio210;Username=postgres;Password=postgres",
+            var handler = ActivatorUtilities.CreateInstance<MigrationHandler>(host.Services);
 
-                DbFilePath = new Dictionary<DbTypes, string>
-                {
-                    { DbTypes.customers, @"\\192.168.80.24\nio210\Помощник ПКР\210_customers.cuDb" },
-                    { DbTypes.instruments, @"\\192.168.80.24\nio210\Помощник ПКР\210_instruments.miDb" },
-                    { DbTypes.employees, @"\\192.168.80.24\nio210\Помощник ПКР\210_employees.nmDb" }
-                },
-
-                DbFolderPath = new Dictionary<DbTypes, string>
-                {
-                    {DbTypes.customers, @"\\192.168.80.24\nio210\Помощник ПКР\organisations" }
-                }
-            };
-
-            var content = JsonConvert.SerializeObject(config);
-
-
+            handler.GetInstrumentTypes();
             
-            var filePath = Path.Combine(
-                Directory.GetParent(
-                      Environment.CurrentDirectory)
-                    .Parent.Parent.FullName,
-                "appsettings.json");
+        }
 
-            File.AppendAllText(filePath, content);
+        public static IHost CreateHost()
+        {
+            var builder = Host.CreateApplicationBuilder();
 
-            //var handler = new MigrationHandler();
+            builder.Configuration.Sources.Clear();
 
-            //var types = handler.GetInstrumentTypes();
+            builder.Configuration.AddJsonFile("appsettings.json",
+                optional: false, reloadOnChange: true);
 
-            //using var db = new ApplicationContext();
+            builder.Services.Configure<GeneralConfig>(
+                builder.Configuration.GetSection(nameof(GeneralConfig))
+            );
 
-            //db.InstrumentTypes.AddRange(types);
-            //db.SaveChanges();
-
-            /* var customers = db.Customers.ToList();
-             Console.WriteLine("Customer list: ");
-
-             foreach (var customer in customers)
-             {
-                 Console.WriteLine($"{customer.CustomerId} -- {customer.ShortName}");
-             }
-            */
+            return builder.Build();
         }
     }
 }

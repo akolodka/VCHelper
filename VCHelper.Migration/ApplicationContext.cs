@@ -1,22 +1,29 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using VCHelper.Migration.Models;
 
 namespace VCHelper.Migration
 {
     internal class ApplicationContext : DbContext
     {
-        public DbSet<Customer> Customers { get; set; }
+        private readonly GeneralConfig _config;
 
-        public DbSet<InstrumentType> InstrumentTypes { get; set; }
-
+        public ApplicationContext(IOptions<GeneralConfig> options)
+        {
+            _config = options.Value;
+        }
         public ApplicationContext()
         {
             Database.EnsureCreated();
         }
 
+        public DbSet<Customer> Customers { get; set; }
+
+        public DbSet<InstrumentType> InstrumentTypes { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=nio210;Username=postgres;Password=postgres");
+            optionsBuilder.UseNpgsql(_config.ConnectionString);
         }
     }
 }

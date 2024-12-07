@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Microsoft.Extensions.Options;
 using VCHelper.Migration.Extensions;
 using VCHelper.Migration.Models;
 
@@ -6,21 +7,20 @@ namespace VCHelper.Migration
 {
     internal class MigrationHandler
     {
-        private const string organisationsSourceFolder = @"\\192.168.80.24\nio210\Помощник ПКР\organisations";
 
-        private const string instrumentTypesFilePath = @"\\192.168.80.24\nio210\Помощник ПКР\210_instruments.miDb";
+        private GeneralConfig _config;
 
-        private const string employeesFilePath = @"\\192.168.80.24\nio210\Помощник ПКР\210_employees.nmDb";
-
-
-
+        public MigrationHandler(IOptions<GeneralConfig> options)
+        {
+            _config = options.Value;
+        } 
 
         public List<InstrumentType> GetInstrumentTypes()
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             Encoding win1251 = Encoding.GetEncoding("windows-1251");
 
-            var fileContent = File.ReadAllLines(instrumentTypesFilePath, win1251);
+            var fileContent = File.ReadAllLines(_config.DbFilePath[DbTypes.Instruments], win1251);
 
             var result = new List<InstrumentType>();
 
@@ -62,7 +62,7 @@ namespace VCHelper.Migration
         {
             var result = new List<Customer>();
 
-            foreach (var folder in Directory.GetDirectories(organisationsSourceFolder))
+            foreach (var folder in Directory.GetDirectories(_config.DbFolderPath[DbTypes.Customers]))
             {
                 var filepath = Directory
                     .GetFiles(folder)
