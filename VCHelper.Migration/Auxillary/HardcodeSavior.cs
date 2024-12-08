@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
+using VCHelper.Migration.Configuration;
 
-namespace VCHelper.Migration
+namespace VCHelper.Migration.Auxillary
 {
     internal class HardcodeSavior
     {
@@ -8,7 +9,7 @@ namespace VCHelper.Migration
         {
             var GeneralConfig = new GeneralConfig()
             {
-                ConnectionString = "Host=localhost;Port=5432;Database=nio210;Username=postgres;Password=postgres",
+                DefaultConnection = "Host=localhost;Port=5432;Database=nio210;Username=postgres;Password=postgres",
 
                 DbFilePath = new Dictionary<DbTypes, string>
                 {

@@ -1,6 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using VCHelper.Migration.Configuration;
+using VCHelper.Migration.Handlers;
 
 namespace VCHelper.Migration
 {
@@ -10,9 +11,15 @@ namespace VCHelper.Migration
         {
             IHost host = CreateHost();
 
-            var handler = ActivatorUtilities.CreateInstance<MigrationHandler>(host.Services);
+            using var db = ActivatorUtilities.CreateInstance<ApplicationContext>(host.Services);
+            
+            var iHandler = ActivatorUtilities.CreateInstance<InstrumentTypesHandler>(host.Services);
+            iHandler.GetInstrumentTypes();
 
-            handler.GetInstrumentTypes();
+            
+            var cHandler = ActivatorUtilities.CreateInstance<CustomersHandler>(host.Services);
+            cHandler.GetExistingCustomers();
+
             
         }
 
@@ -20,14 +27,8 @@ namespace VCHelper.Migration
         {
             var builder = Host.CreateApplicationBuilder();
 
-            builder.Configuration.Sources.Clear();
-
-            builder.Configuration.AddJsonFile("appsettings.json",
-                optional: false, reloadOnChange: true);
-
-            builder.Services.Configure<GeneralConfig>(
-                builder.Configuration.GetSection(nameof(GeneralConfig))
-            );
+            builder.Services.AddOptions<GeneralConfig>()
+                .BindConfiguration(nameof(GeneralConfig));
 
             return builder.Build();
         }
