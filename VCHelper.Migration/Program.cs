@@ -11,8 +11,8 @@ namespace VCHelper.Migration
     {
         public static void Main(string[] args)
         {
-            IHost host = CreateHost();
-            
+            var host = CreateHost();
+
             var handler = new MigrationHandler();
 
             using var db = ActivatorUtilities.CreateInstance<ApplicationContext>(host.Services);
@@ -25,7 +25,9 @@ namespace VCHelper.Migration
                 var fileCustomers = handler.GetFromDbFile(
                     ActivatorUtilities.CreateInstance<Files.CustomerStrategy>(host.Services));
 
-                var customers = fileCustomers.Except(folderCustomers, new CustomerEqualityComparer()).ToList();
+                var customers = fileCustomers
+                    .Except(folderCustomers, new CustomerEqualityComparer())
+                    .ToList();
 
                 db.Customers.AddRange(customers);
 
@@ -46,7 +48,8 @@ namespace VCHelper.Migration
         {
             var builder = Host.CreateApplicationBuilder();
 
-            builder.Services.AddOptions<GeneralConfig>()
+            builder.Services
+                .AddOptions<GeneralConfig>()
                 .BindConfiguration(nameof(GeneralConfig));
 
             return builder.Build();

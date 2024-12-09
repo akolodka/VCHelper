@@ -11,6 +11,7 @@ namespace VCHelper.Migration
         public MigrationHandler()
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
             Encoding = Encoding.GetEncoding("windows-1251");
         }
 
@@ -29,7 +30,7 @@ namespace VCHelper.Migration
             {
                 var item = strategy.GetFromTextLine(line);
 
-                if (item is not null)
+                if (item is null == false)
                 {
                     result.Add(item);
                 }
@@ -53,7 +54,7 @@ namespace VCHelper.Migration
             {
                 var filepath = Directory.GetFiles(folder).FirstOrDefault();
 
-                if (filepath is null)
+                if (filepath is null == true)
                 {
                     continue;
                 }
@@ -64,7 +65,7 @@ namespace VCHelper.Migration
 
                 var item = strategy.GetFromFileContent(keyword, fileContent);
 
-                if (item is not null)
+                if (item is null == false)
                 {
                     result.Add(item);
                 }
