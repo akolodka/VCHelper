@@ -1,20 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using VCHelper.Migration.Configuration;
-using VCHelper.Migration.Models;
+using VCHelper.Migration.Entities;
 
 namespace VCHelper.Migration
 {
     internal class ApplicationContext : DbContext
     {
-        private readonly IDbContextConfig _config;
-
-        public ApplicationContext(IOptions<GeneralConfig> options)
-        {
-            _config = options.Value;
-
-            Database.EnsureCreated();
-        }
+        private readonly IDbContextConfig Config;
 
         public DbSet<Customer> Customers { get; set; }
 
@@ -22,9 +15,19 @@ namespace VCHelper.Migration
 
         public DbSet<Employee> Employees { get; set; }
 
+        public ApplicationContext()
+        {
+            Database.EnsureCreated();
+        }
+
+        public ApplicationContext(IOptions<GeneralConfig> options)
+        {
+            Config = options.Value;
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql(_config.DefaultConnection);
+            optionsBuilder.UseNpgsql(Config.DefaultConnection);
         }
     }
 }

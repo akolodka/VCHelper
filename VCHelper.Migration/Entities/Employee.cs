@@ -1,13 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace VCHelper.Migration.Models
+namespace VCHelper.Migration.Entities
 {
-    [Table("person")]
+    [Table("employee")]
     internal class Employee
     {
         [Key]
-        [Column("person_id")]
+        [Column("employee_id")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int? EmployeeId { get; set; }
 

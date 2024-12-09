@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
-
-namespace VCHelper.Migration.Models
+namespace VCHelper.Migration.Entities
 {
     [Table("customer")]
     internal class Customer

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace VCHelper.Migration.Models
+namespace VCHelper.Migration.Entities
 {
     [Table("typeofInstrument")]
     internal class InstrumentType

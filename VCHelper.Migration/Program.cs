@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using VCHelper.Migration.Comparers;
 using VCHelper.Migration.Configuration;
-using VCHelper.Migration.Handlers;
+using Files = VCHelper.Migration.FileDbStrategies;
+using Folders = VCHelper.Migration.FolderDbStrategies;
 
 namespace VCHelper.Migration
 {
@@ -10,17 +12,34 @@ namespace VCHelper.Migration
         public static void Main(string[] args)
         {
             IHost host = CreateHost();
+            
+            var handler = new MigrationHandler();
 
             using var db = ActivatorUtilities.CreateInstance<ApplicationContext>(host.Services);
-            
-            var iHandler = ActivatorUtilities.CreateInstance<InstrumentTypesHandler>(host.Services);
-            iHandler.GetInstrumentTypes();
 
-            
-            var cHandler = ActivatorUtilities.CreateInstance<CustomersHandler>(host.Services);
-            cHandler.GetExistingCustomers();
+            try
+            {
+                var folderCustomers = handler.GetFromDbFolder(
+                    ActivatorUtilities.CreateInstance<Folders.CustomerStrategy>(host.Services));
 
-            
+                var fileCustomers = handler.GetFromDbFile(
+                    ActivatorUtilities.CreateInstance<Files.CustomerStrategy>(host.Services));
+
+                var customers = fileCustomers.Except(folderCustomers, new CustomerEqualityComparer()).ToList();
+
+                db.Customers.AddRange(customers);
+
+                //var employees = handler.GetFromDbFile(
+                //    ActivatorUtilities.CreateInstance<Files.EmployeeStrategy>(host.Services));
+
+                //db.Employees.AddRange(employees);
+
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         public static IHost CreateHost()
