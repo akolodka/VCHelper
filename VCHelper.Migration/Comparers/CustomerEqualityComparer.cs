@@ -16,14 +16,17 @@ namespace VCHelper.Migration.Comparers
                 return false;
             }
 
-            return x.Keyword == y.Keyword 
-                && x.ShortName == y.ShortName 
-                && x.LegalAddress == y.LegalAddress;
+            return x.ShortName == y.ShortName;
         }
 
         public int GetHashCode(Customer obj)
         {
-            return obj.GetHashCode();
+            if (obj is null == true)
+            {
+                return 0;
+            }
+
+            return obj.ShortName.GetHashCode();
         }
     }
 }

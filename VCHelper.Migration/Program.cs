@@ -19,14 +19,16 @@ namespace VCHelper.Migration
 
             try
             {
-                var folderCustomers = handler.GetFromDbFolder(
-                    ActivatorUtilities.CreateInstance<Folders.CustomerStrategy>(host.Services));
+                //var folderCustomers = handler.GetFromDbFolder(
+                //    ActivatorUtilities.CreateInstance<Folders.CustomerStrategy>(host.Services));
+
+                var existingCustomers = db.Customers.ToList();
 
                 var fileCustomers = handler.GetFromDbFile(
                     ActivatorUtilities.CreateInstance<Files.CustomerStrategy>(host.Services));
 
                 var customers = fileCustomers
-                    .Except(folderCustomers, new CustomerEqualityComparer())
+                    .Except(existingCustomers, new CustomerEqualityComparer())
                     .ToList();
 
                 db.Customers.AddRange(customers);
@@ -44,7 +46,7 @@ namespace VCHelper.Migration
             }
         }
 
-        public static IHost CreateHost()
+        private static IHost CreateHost()
         {
             var builder = Host.CreateApplicationBuilder();
 
